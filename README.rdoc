@@ -2,7 +2,7 @@
 
 Better Pagination is a jQuery plugin written in coffeescript (although I also provide the generated JS in both the normal and minified version) that provides infinite scroll and/or loading of elements by clicking on a show more button. This is often useful when listing a lot of elements and you don't want to do normal pagination within a table.
 
-It's a very small file (4KB) and fully configurable. All requests happen through AJAX.
+It's a very small file (1.64KB min version) and fully configurable. All requests happen through AJAX.
 
 == Requeriments
 
