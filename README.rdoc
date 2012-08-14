@@ -10,13 +10,13 @@ The jQuery library.
 
 == Usage Example
 
-**Client Side**
+=== Client Side
 
   $("#posts").better_pagination
     starts_at: <%= POSTS["index_limit"] %>
     load_on_scroll: true
 
-**Server Side**
+=== Server Side
 
 It must have a path that responds with the correct json information, given a +start_at+ parameter through an HTTP GET action.
 
