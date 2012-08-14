@@ -1,0 +1,51 @@
+= Better Pagination
+
+Better Pagination is a jQuery plugin written in coffeescript (although I also provide the generated JS in both the normal and minified version) that provides infinite scroll and/or loading of elements by clicking on a show more button. This is often useful when listing a lot of elements and you don't want to do normal pagination within a table.
+
+It's a very small file (4KB) and fully configurable. All requests happen through AJAX.
+
+== Requeriments
+
+The jQuery library.
+
+== Usage Example
+
+*Client Side*
+
+  $("#posts").better_pagination
+    starts_at: <%= POSTS["index_limit"] %>
+    load_on_scroll: true
+
+*Server Side*
+
+It must have a path that responds with the correct json information, given a +start_at+ parameter through an HTTP GET action.
+
+The response should have the format:
+
+  {
+    html: # The html escaped string of the list of elements
+    has_more: # A boolean that is true if there are any more elements and false otherwise
+    new_start: # The database id of the last returned element or nil if has_more is false
+  }
+
+Here is an example in Ruby on Rails:
+
+  def load
+    @posts = # get relevant posts
+    
+    html_str = render_to_string( partial: "posts/post", collection: @posts)
+        
+    respond_to do |format|
+      format.json { render json: { html: html_str, has_more: !@posts.empty?, new_start: (@posts.last) ? @posts.last.id : nil } }
+    end
+  end
+
+== Options
+
+starts_at:: The id of the last element currently loaded
+load\_on\_scroll:: Automatically load elements when the scroll bar gets to the bottom
+loading\_selector:: The jQuery selector of the div to show when loading
+show\_more\_selector:: The jQuery selector of the link to click in order to show more
+no\_more\_selector:: The jQuery selector of the div to show when there are no more elements
+load\_path:: The path to the load method
+debug:: Boolean that turns on or off the debug messages
